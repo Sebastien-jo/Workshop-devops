@@ -16,10 +16,24 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
+
 stages:          # List of stages for jobs, and their order of execution
+  - merge
   - build
   - test
   - deploy
+
+merge-job:
+  script:
+    - echo "hello world"
+   name: trigger Job
+      uses: appleboy/gitlab-ci-action@master
+      with:
+        url: "https://gitlab.com"
+        token: ${{ secrets.TOKEN }}
+        debug: true
+        project_id: 2
+        ref: 'v1.0.0'
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
@@ -47,3 +61,4 @@ deploy-job:      # This job runs in the deploy stage.
   script:
     - echo "Deploying application..."
     - echo "Application successfully deployed."
+
