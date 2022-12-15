@@ -16,12 +16,16 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
-
 stages:          # List of stages for jobs, and their order of execution
   - merge
   - build
   - test
   - deploy
+  - push
+
+push-job:
+  script:
+    - echo "hello world"
 
 merge-job:
   script:
@@ -29,7 +33,7 @@ merge-job:
    name: trigger Job
       uses: appleboy/gitlab-ci-action@master
       with:
-        url: "https://gitlab.com"
+        url: "http://localhost:8080/gitlab-instance-0a1dfe4c/Workshop-devops/-/tree/main"
         token: ${{ secrets.TOKEN }}
         debug: true
         project_id: 2
